@@ -8,3 +8,4 @@ COPY --from=build /usr/share/git-core /usr/share/git-core
 COPY --from=build /usr/bin/git /usr/local/bin/git
 COPY --from=build /usr/bin/curl /usr/local/bin/curl
 COPY --from=build /usr/bin/wget /usr/local/bin/wget
+USER 1000
