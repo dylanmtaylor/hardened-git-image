@@ -1,10 +1,10 @@
 # hardened-git-image
 
-Built on the official [Docker Hardened Images](https://hub.docker.com/hardened-images/catalog) `git` image (Alpine) with `unzip` added.
+Built on the official [Docker Hardened Images](https://hub.docker.com/hardened-images/catalog) `git` runtime image (Alpine) with `unzip` added.
 
 ## What's included
 
-Everything in `dhi.io/git:2-alpine3.23-dev` plus:
+Everything in `dhi.io/git:2-alpine3.23` plus:
 
 - `unzip` — for extracting zip archives (e.g. CI artifacts)
 
