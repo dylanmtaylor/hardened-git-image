@@ -52,6 +52,24 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
+      - name: Smoke test runtime tools
+        run: |
+          image="${IMAGE}@${{ steps.build.outputs.digest }}"
+          docker run --rm --entrypoint /bin/sh "$image" -c '
+            test "$(id -u)" -ne 0
+            smoke_dir=/tmp/hardened-git-image-smoke
+            mkdir "$smoke_dir"
+            echo ok > "$smoke_dir/result"
+            test "$(cat "$smoke_dir/result")" = ok
+            rm -rf "$smoke_dir"
+            git --version
+            curl --version
+            unzip -v >/dev/null
+            for command in cat chmod cp cut date find grep head ln mkdir mv rm sleep; do
+              command -v "$command" >/dev/null
+            done
+          '
+
       - run: |
           mkdir -p /tmp/digests
           digest="${{ steps.build.outputs.digest }}"
